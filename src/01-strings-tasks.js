@@ -248,8 +248,29 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
+  const LENGTH = ALPHABET.length;
+  const FIRST_LETTER = ALPHABET[0];
+  const FIRST_LETTER_CODE = FIRST_LETTER.charCodeAt(0);
+  const LAST_LETTER = ALPHABET[LENGTH - 1];
+  const ROT_SHIFT = 13;
+  const chars = str.split('');
+
+  return chars.map((char) => {
+    const isLowerCaseEnglishLetter = char >= FIRST_LETTER && char <= LAST_LETTER;
+    const isUpperCaseEnglishLetter = char >= FIRST_LETTER.toUpperCase()
+      && char <= LAST_LETTER.toUpperCase();
+    const CHAR_CODE = char.toLowerCase().charCodeAt(0);
+    let resultChar = char;
+
+    if (isLowerCaseEnglishLetter || isUpperCaseEnglishLetter) {
+      const encodedLetter = ALPHABET[(CHAR_CODE - FIRST_LETTER_CODE + ROT_SHIFT) % LENGTH];
+      resultChar = isUpperCaseEnglishLetter ? encodedLetter.toUpperCase() : encodedLetter;
+    }
+
+    return resultChar;
+  }).join('');
 }
 
 /**

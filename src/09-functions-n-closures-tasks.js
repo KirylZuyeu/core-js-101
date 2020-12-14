@@ -48,10 +48,8 @@ function getComposition(f, g) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
-}
 
+const getPowerFunction = (exponent) => (number) => number ** exponent;
 
 /**
  * Returns the polynom function of one argument based on specified coefficients.
@@ -196,9 +194,7 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
-}
+const partialUsingArguments = (fn, ...args1) => (...args) => fn(...args1, ...args);
 
 
 /**
@@ -228,7 +224,6 @@ function getIdGeneratorFunction(startFrom) {
     return id - 1 + 1;
   };
 }
-
 
 module.exports = {
   getComposition,
