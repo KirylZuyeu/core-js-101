@@ -249,28 +249,20 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
-  const LENGTH = ALPHABET.length;
-  const FIRST_LETTER = ALPHABET[0];
-  const FIRST_LETTER_CODE = FIRST_LETTER.charCodeAt(0);
-  const LAST_LETTER = ALPHABET[LENGTH - 1];
-  const ROT_SHIFT = 13;
-  const chars = str.split('');
-
-  return chars.map((char) => {
-    const isLowerCaseEnglishLetter = char >= FIRST_LETTER && char <= LAST_LETTER;
-    const isUpperCaseEnglishLetter = char >= FIRST_LETTER.toUpperCase()
-      && char <= LAST_LETTER.toUpperCase();
-    const CHAR_CODE = char.toLowerCase().charCodeAt(0);
-    let resultChar = char;
-
-    if (isLowerCaseEnglishLetter || isUpperCaseEnglishLetter) {
-      const encodedLetter = ALPHABET[(CHAR_CODE - FIRST_LETTER_CODE + ROT_SHIFT) % LENGTH];
-      resultChar = isUpperCaseEnglishLetter ? encodedLetter.toUpperCase() : encodedLetter;
+  const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  const firstCharCode = input.charCodeAt(0);
+  const lastCharCode = input.charCodeAt(input.length - 1);
+  let encoded = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i].charCodeAt(0) < firstCharCode || str[i].charCodeAt(0) > lastCharCode) {
+      encoded += str[i];
+    } else {
+      const index = input.indexOf(str[i]);
+      encoded += output[index];
     }
-
-    return resultChar;
-  }).join('');
+  }
+  return encoded;
 }
 
 /**
