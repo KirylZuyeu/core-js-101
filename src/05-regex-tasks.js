@@ -32,7 +32,10 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-  throw new Error('Not implemented');
+  // const common = '[abcdefABCDEF0-9]';
+  const common = '[abcdefABCDEF0-9]';
+  const validator = `^{${common}{8}-${common}{4}-${common}{4}-${common}{4}-${common}{12}}$`;
+  return new RegExp(validator);
 }
 
 
@@ -54,7 +57,7 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
-  throw new Error('Not implemented');
+  return new RegExp('[psr]{1}.[t]');
 }
 
 
@@ -78,8 +81,9 @@ function getRegexForPitSpot() {
  *   'PASSW0RD'.match(validator)  => false
  *   'Pa55'.match(validator) => false
  */
-function getPasswordValidator(/* minLength */) {
-  throw new Error('Not implemented');
+function getPasswordValidator(minLength) {
+  const stringPattern = `^(?=.+[a-z])(?=.+[A-Z])(?=.+[0-9])[a-zA-Z0-9]{${minLength},}$`;
+  return new RegExp(stringPattern);
 }
 
 
